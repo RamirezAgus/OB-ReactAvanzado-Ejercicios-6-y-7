@@ -33,20 +33,28 @@ webpush.setVapidDetails(
 );
 
 // Routes
-app.get("/", async (req, res) => {
-  // res.sendStatus(200).json();
-  const payload = JSON.stringify({ title: "Título de notificación", message: "Mensaje de la notificación" });
+app.get('/', async (req, res) => {
+  //console.log(req.body);
+  const payload = JSON.stringify({ title: "Título de Notificación", message: "Mensaje de la notificación" });
   try {
-    await webpush.sendNotification(pushSubscription, payload);
-    await res.send("Enviado");
-  } catch (error) {
-    console.log(error)
-  }
+      await webpush.sendNotification(pushSubscription, payload);
+      await res.send(payload);
+  } catch (e) { console.error(e) }
 });
 
-app.post("/subscription", (req, res) => {
+app.post('/message', async (req, res) => {
+  const { title, message} = req.body;
+  const payload = JSON.stringify({ title: title, message: message });
+  try {
+      await webpush.sendNotification(pushSubscription, payload)    
+  } catch (error) {
+      console.error(error)        
+  }
+})
+
+app.post('/subscription', (req, res) => {
   console.log(req.body);
   res.sendStatus(200).json();
 })
 
-app.listen(8000, () => console.log("Server listening on port 8000"))
+app.listen(3001, () => console.log("Server listening on port 3001"))

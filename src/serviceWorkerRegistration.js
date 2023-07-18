@@ -71,7 +71,7 @@ function registerValidSW(swUrl, config) {
             applicationServerKey: vapidKeys.publicKey
           })
           // Aqui se lo enviamos al servidor
-          await axios.post('http://localhost:8000/subscription', {
+          await axios.post('http://localhost:3001/subscription', {
             pushSubscription
           })
         })

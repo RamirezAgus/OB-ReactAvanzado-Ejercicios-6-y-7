@@ -73,16 +73,17 @@ self.addEventListener('message', (event) => {
 // Aqui vamos a poner nuestro codigo custom.
 //const version = "app-compra-v8";
 
-self.addEventListener("install", event => {
-  console.log(`Instalando una nueva version...`);
-  self.registration.showNotification("Nueva versión de la App!", { body: "Istalar ahora" });
+self.addEventListener('install', event => {
+  console.log(`Instalando una nueva versión...`);
+  self.registration.showNotification("💬 Nueva versión de la App!", { body: "Instálala ahora mismo" })
 });
 
-self.addEventListener("activate", event => {
-  console.log(`¡Activada la nueva version!`);
+self.addEventListener('activate', event => {
+  console.log(`¡Activada la nueva versión!`)
 });
 
-self.addEventListener("push", event => {
+self.addEventListener('push', event => {
   const { title, message } = event.data.json();
+  console.log(event.data.json())
   self.registration.showNotification(title, { body: message });
 })

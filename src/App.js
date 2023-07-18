@@ -1,41 +1,26 @@
-import React, { useState } from 'react';
-import './App.css';
-import { withServiceWorkerUpdater } from '@3m1/service-worker-updater';
+import React from "react";
+import "./App.css";
+import { FormNotification } from './components/FormNotification';
+import { withServiceWorkerUpdater } from '@3m1/service-worker-updater'
 
 const App = (props) => {
-
-  const { newServiceWorkerDetected, onLoadNewServiceWorkerAccept  } = props;
-
-  const [newItem, setNewItem] = useState("");
-  const [items, setItems] = useState([]);
-
-  const addNewItem = () => {
-    setItems([...items, newItem]);
-    setNewItem('')
-  }
-
-  return (
+  const { newServiceWorkerDetected, onLoadNewServiceWorkerAccept } = props
+  
+    return (
     <div className="App">
       <header className="App-header">
-        <h1>**Proyecto  PWA - Lista de compra V8 **</h1>
-          {newServiceWorkerDetected && <div>
-          <h3>¡Nueva Actualización! Quieres actualizar?</h3>
-          <button onClick={onLoadNewServiceWorkerAccept} >Actualizar</button>
-        </div>}
-        <input type='text' onKeyPress={(e) => e.key === 'Enter' && addNewItem()} onChange={(e) => setNewItem(e.target.value)} value={newItem}/>
-        <button onClick={addNewItem}>Añadir</button>
-        <ul>
-          {
-            items.map((item, key) => 
-              <li key={key}>
-                {item}
-              </li>
-              )
-          }
-        </ul>
+        <p>
+          "App <code> ejercicios </code> React JS."
+        </p>
+        {(newServiceWorkerDetected === true) ? <div style={{ backgroundColor: 'tomato', marginBottom: 20, padding: 20 }}>
+          <h3>¡Nueva actualización! ¿Quieres actualizar?</h3>
+          <button onClick={onLoadNewServiceWorkerAccept} style={{ padding: 15 }}>¡Actualizar!</button>
+        </div>:null} 
+        <br />
+        <FormNotification/>
       </header>
     </div>
   );
-}
+};
 
 export default withServiceWorkerUpdater(App);
